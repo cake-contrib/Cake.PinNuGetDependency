@@ -21,5 +21,5 @@ PinNuGetDependency(filePath, "reactiveui");
 Which does the following
 
 * Opens `reactiveui-xamforms-8.0.0.nupkg` in memory
-* Extracts the nuspec definition and modifyes the dependency version of `reactiveui` to be `$"[{$version}]"`
+* Extracts the nuspec definition and modifies the dependency version of `reactiveui` to be `$"[{$version}]"`
 * Saves contents of memory to `reactiveui-xamforms-8.0.0.nupkg`
