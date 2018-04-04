@@ -3,17 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "! Solution Items", "! Solution Items", "{8F1F16E6-8149-49AB-B67E-633DBB16866E}"
-	ProjectSection(SolutionItems) = preProject
-		Cake.PinNuGetDependency.nuspec = Cake.PinNuGetDependency.nuspec
-		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
-		..\LICENSE.md = ..\LICENSE.md
-		..\README.md = ..\README.md
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.PinNuGetDependency", "Cake.PinNuGetDependency\Cake.PinNuGetDependency.csproj", "{B06F9D18-B527-480E-BA34-DD10644E2832}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.PinNuGetDependency.Tests", "Cake.PinNuGetDependency.Tests\Cake.PinNuGetDependency.Tests.csproj", "{9DC10E93-A002-40BB-8044-D38C9E7568DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.PinNuGetDependency.Tests", "Cake.PinNuGetDependency.Tests\Cake.PinNuGetDependency.Tests.csproj", "{9DC10E93-A002-40BB-8044-D38C9E7568DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D091A6D-8F53-4554-94EB-0AC187B81302}
 	EndGlobalSection
 EndGlobal
