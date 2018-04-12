@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net46</TargetFrameworks>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -26,7 +27,6 @@
   <ItemGroup>
     <PackageReference Include="Cake.Core" Version="0.22.0" />
     <PackageReference Include="Cake.Common" Version="0.22.0" />
-    <PackageReference Include="DotNetZip" Version="1.10.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,9 +34,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DotNetZip.dll">
+    <None Include="..\..\contrib\DotNetZip.dll" Link="DotNetZip.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
- 
+
+  <ItemGroup>
+    <Reference Include="DotNetZip">
+      <HintPath>..\..\contrib\DotNetZip.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- https://github.com/NuGet/Home/issues/3891 -->
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveProjectReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)DotNetZip.dll" />
+    </ItemGroup>
+  </Target>
+
 </Project>
