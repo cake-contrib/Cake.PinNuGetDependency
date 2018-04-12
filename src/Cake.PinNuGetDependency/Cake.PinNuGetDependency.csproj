@@ -26,16 +26,17 @@
   <ItemGroup>
     <PackageReference Include="Cake.Core" Version="0.22.0" />
     <PackageReference Include="Cake.Common" Version="0.22.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <PackageReference Include="DotNetZip">
-      <Version>1.10.1</Version>
-    </PackageReference>
+    <PackageReference Include="DotNetZip" Version="1.10.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DotNetZip.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
  
 </Project>
