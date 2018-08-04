@@ -230,5 +230,6 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-# Tools
+# Cake - C# Make
 tools/
+BuildArtifacts/
