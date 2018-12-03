@@ -4307,13 +4307,6 @@
               of ZipEntry objects contained within this instance.
             </summary>
         </member>
-        <member name="P:Ionic.Zip.ZipFile.DefaultEncoding">
-            <summary>
-            The default text encoding used in zip archives.  It is numeric 437, also
-            known as IBM437.
-            </summary>
-            <seealso cref="P:Ionic.Zip.ZipFile.ProvisionalAlternateEncoding"/>
-        </member>
         <member name="P:Ionic.Zip.ZipFile.StatusMessageTextWriter">
              <summary>
              Gets or sets the <c>TextWriter</c> to which status messages are delivered
@@ -4862,6 +4855,92 @@
              The maximum size of an output segment, when saving a split Zip file.
              </summary>
              <remarks>
+               <para>
+                 Make sure you do not read from this field if you've set the value using <see cref="P:Ionic.Zip.ZipFile.MaxOutputSegmentSize64"/>
+               </para>
+               
+               <para>
+                 Set this to a non-zero value before calling <see cref="M:Ionic.Zip.ZipFile.Save"/> or <see
+                 cref="M:Ionic.Zip.ZipFile.Save(System.String)"/> to specify that the ZipFile should be saved as a
+                 split archive, also sometimes called a spanned archive. Some also
+                 call them multi-file archives.
+               </para>
+            
+               <para>
+                 A split zip archive is saved in a set of discrete filesystem files,
+                 rather than in a single file. This is handy when transmitting the
+                 archive in email or some other mechanism that has a limit to the size of
+                 each file.  The first file in a split archive will be named
+                 <c>basename.z01</c>, the second will be named <c>basename.z02</c>, and
+                 so on. The final file is named <c>basename.zip</c>. According to the zip
+                 specification from PKWare, the minimum value is 65536, for a 64k segment
+                 size. The maximum number of segments allows in a split archive is 99.
+               </para>
+            
+               <para>
+                 The value of this property determines the maximum size of a split
+                 segment when writing a split archive.  For example, suppose you have a
+                 <c>ZipFile</c> that would save to a single file of 200k. If you set the
+                 <c>MaxOutputSegmentSize</c> to 65536 before calling <c>Save()</c>, you
+                 will get four distinct output files. On the other hand if you set this
+                 property to 256k, then you will get a single-file archive for that
+                 <c>ZipFile</c>.
+               </para>
+            
+               <para>
+                 The size of each split output file will be as large as possible, up to
+                 the maximum size set here. The zip specification requires that some data
+                 fields in a zip archive may not span a split boundary, and an output
+                 segment may be smaller than the maximum if necessary to avoid that
+                 problem. Also, obviously the final segment of the archive may be smaller
+                 than the maximum segment size. Segments will never be larger than the
+                 value set with this property.
+               </para>
+            
+               <para>
+                 You can save a split Zip file only when saving to a regular filesystem
+                 file. It's not possible to save a split zip file as a self-extracting
+                 archive, nor is it possible to save a split zip file to a stream. When
+                 saving to a SFX or to a Stream, this property is ignored.
+               </para>
+            
+               <para>
+                 About interoperability: Split or spanned zip files produced by DotNetZip
+                 can be read by WinZip or PKZip, and vice-versa. Segmented zip files may
+                 not be readable by other tools, if those other tools don't support zip
+                 spanning or splitting.  When in doubt, test.  I don't believe Windows
+                 Explorer can extract a split archive.
+               </para>
+            
+               <para>
+                 This property has no effect when reading a split archive. You can read
+                 a split archive in the normal way with DotNetZip.
+               </para>
+            
+               <para>
+                 When saving a zip file, if you want a regular zip file rather than a
+                 split zip file, don't set this property, or set it to Zero.
+               </para>
+            
+               <para>
+                 If you read a split archive, with <see cref="M:Ionic.Zip.ZipFile.Read(System.String)"/> and
+                 then subsequently call <c>ZipFile.Save()</c>, unless you set this
+                 property before calling <c>Save()</c>, you will get a normal,
+                 single-file archive.
+               </para>
+             </remarks>
+            
+             <seealso cref="P:Ionic.Zip.ZipFile.NumberOfSegmentsForMostRecentSave"/>
+        </member>
+        <member name="P:Ionic.Zip.ZipFile.MaxOutputSegmentSize64">
+             <summary>
+             The maximum size of an output segment, when saving a split Zip file.
+             </summary>
+             <remarks>
+               <para>
+                 If you set this value, make sure you do not accidently use <see cref="P:Ionic.Zip.ZipFile.MaxOutputSegmentSize"/> in your code
+               </para>
+               
                <para>
                  Set this to a non-zero value before calling <see cref="M:Ionic.Zip.ZipFile.Save"/> or <see
                  cref="M:Ionic.Zip.ZipFile.Save(System.String)"/> to specify that the ZipFile should be saved as a
@@ -7551,7 +7630,7 @@
              </exception>
             
              <exception cref="T:System.OverflowException">
-               Thrown if <see cref="P:Ionic.Zip.ZipFile.MaxOutputSegmentSize"/> is non-zero, and the number
+               Thrown if <see cref="P:Ionic.Zip.ZipFile.MaxOutputSegmentSize"/> or <see cref="P:Ionic.Zip.ZipFile.MaxOutputSegmentSize64"/> is non-zero, and the number
                of segments that would be generated for the spanned zip file during the
                save operation exceeds 99.  If this happens, you need to increase the
                segment size.
@@ -8712,6 +8791,25 @@
              </param>
             
         </member>
+        <member name="M:Ionic.Zip.ZipFile.#cctor">
+            <summary>
+            
+            
+            Static constructor for ZipFile
+            </summary>
+            <remarks>
+            Code Pages 437 and 1252 for English are same
+            Code Page 1252 Windows Latin 1 (ANSI) - <see href="https://msdn.microsoft.com/en-us/library/cc195054.aspx"/>
+            Code Page 437 MS-DOS Latin US - <see href="https://msdn.microsoft.com/en-us/library/cc195060.aspx"/>
+            </remarks>
+        </member>
+        <member name="P:Ionic.Zip.ZipFile.DefaultEncoding">
+            <summary>
+            The default text encoding used in zip archives.  It is numeric 437, also
+            known as IBM437.
+            </summary>
+            <seealso cref="P:Ionic.Zip.ZipFile.AlternateEncoding"/>
+        </member>
         <member name="M:Ionic.Zip.ZipFile.GetEnumerator">
              <summary>
              Generic IEnumerator support, for use of a ZipFile in an enumeration.
@@ -9567,6 +9665,15 @@
             <param name="pathName">source path.</param>
             <returns>transformed path</returns>
         </member>
+        <member name="M:Ionic.Zip.SharedUtilities.SanitizePath(System.String)">
+            <summary>
+            Sanitize paths in zip files. This means making sure that relative paths in a zip file don't go outside
+            the top directory. Entries like something/../../../../Temp/evil.txt get sanitized to Temp/evil.txt
+            when extracting
+            </summary>
+            <param name="path">A path with forward slashes as directory separator</param>
+            <returns>sanitized path</returns>
+        </member>
         <member name="M:Ionic.Zip.SharedUtilities.FindSignature(System.IO.Stream,System.Int32)">
              <summary>
                Finds a signature in the zip stream. This is useful for finding
@@ -10206,6 +10313,13 @@
             
              </remarks>
             
+        </member>
+        <member name="P:Ionic.Zip.ZipEntry.DontEmitLastModified">
+            <summary>
+            Ability to set Last Modified DOS time to zero
+            (for using with EmitTimesInWindowsFormatWhenSaving+EmitTimesInUnixFormatWhenSaving setted to false)
+            some flasher hardware use as marker of first binary
+            </summary>
         </member>
         <member name="P:Ionic.Zip.ZipEntry.ModifiedTime">
              <summary>
