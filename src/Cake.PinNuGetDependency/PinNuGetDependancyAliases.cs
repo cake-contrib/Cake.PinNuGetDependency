@@ -11,10 +11,20 @@ using Ionic.Zip;
 
 namespace Cake.PinNuGetDependency
 {
+    /// <summary>
+    /// Contains functionality for pinning NuGet dependencies.
+    /// </summary>
     [CakeAliasCategory("NuGet")]
     [CakeNamespaceImport("Cake.PinNuGetDependency")]
     public static class PinNuGetDependencyAliases
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="filePath">Path to the nupkg file.</param>
+        /// <param name="dependancyIdentifier">Dependency identifier.</param>
+        /// <exception cref="FileNotFoundException"></exception>
         [CakeMethodAlias]
 
         public static void PinNuGetDependency(this ICakeContext context, FilePath filePath, string dependancyIdentifier)
