@@ -233,3 +233,6 @@ _Pvt_Extensions
 # Cake - C# Make
 tools/
 BuildArtifacts/
+
+# Jetbrains
+.idea
