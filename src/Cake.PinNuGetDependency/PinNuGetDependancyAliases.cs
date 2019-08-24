@@ -19,7 +19,7 @@ namespace Cake.PinNuGetDependency
     public static class PinNuGetDependencyAliases
     {
         /// <summary>
-        /// 
+        /// Pin NuGet Dependencies based on identifier.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="filePath">Path to the nupkg file.</param>
