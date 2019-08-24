@@ -1,6 +1,6 @@
-## Cake.PinNuGetDependency 
+## Cake.PinNuGetDependency
 
-Are you using the new `dotnet pack` tooling to create your NuGet packages and are frustrated that there is no way to specify that child packages of our main project should be *locked* to the version that's being built? Not having version pinning creates user frustration when using bait & switch style libaries and is it's own special type of hell for maintainers to support. This Cake addin unzips the specified NuGet package and searches of the supplied dependency and locks the version.
+Are you using the new `dotnet pack` tooling to create your NuGet packages and are frustrated that there is no way to specify that child packages of our main project should be *locked* to the version that's being built? Not having version pinning creates user frustration when using bait & switch style libraries and is it's own special type of hell for maintainers to support. This Cake addin unzips the specified NuGet package and searches of the supplied dependency and locks the version.
 
 
 ## Installation
